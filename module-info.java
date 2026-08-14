@@ -4,5 +4,5 @@
 /**
  * 
  */
-module orderEntryPhase2 {
+module powersTable {
 }
