@@ -98,12 +98,12 @@ public class OrderEntryPhase4 {
 							"Customer State\t\t" +
 							"Customer Zip Code");
 		System.out.println("---------------\t\t" +
-							"---------------\t\t" +
+							"---------------\t\t\t" +
 							"-------------\t\t" +
 							"--------------\t\t" +
 							"-------------------\t\t");
-		System.out.println(customerName + "\t\t" +
-							streetAddress + "\t" +
+		System.out.println(customerName + "\t\t\t" +
+							streetAddress + "\t\t" +
 							customerCity + "\t\t\t" +
 							customerState + "\t\t\t" +
 							zipCode + "\t\t\n");
@@ -114,12 +114,12 @@ public class OrderEntryPhase4 {
 							"Quantity\t" +
 							"Gross Amt\t" +
 							"Tax %\t" +
-							"Tax Amt\t" +
+							"Tax Amt\t\t" +
 							"Discount %\t" +
 							"Discount Amt\t" +
 							"Net Amt");
 		System.out.println("-----------\t" +
-							"---------------\t" +
+							"---------------\t\t" +
 							"----------\t" +
 							"--------\t" +
 							"---------\t" +
@@ -128,29 +128,28 @@ public class OrderEntryPhase4 {
 							"-----------\t" +
 							"-------------\t" +
 							"-------");
-		for (int i = 0; i < itemCount; i++)
-		{
-			System.out.println(itemNumber[i] + "\t\t" +
-								itemDescription[i] + "\t\t" +
-								"$" + itemPrice[i] + "\t\t" +
-								quantityOrdered[i] + "\t\t" +
-								grossAmount[i] + "\t\t" +
-								taxPercentage[i] + "\t" +
-								"$" + taxAmount[i] + "\t" +
-								discountPercent[i] + "\t\t" +
-								"$" + discountAmount[i] + "\t\t" +
-								"$" + netAmount[i]);
+		
+		for (int i = 0; i < itemCount; i++) {
+			System.out.printf("%s\t\t%s\t\t\t%.2f\t\t%d\t\t%.2f\t\t%.2f\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\n", 
+					itemNumber[i],
+					itemDescription[i],
+					itemPrice[i],
+					quantityOrdered[i],
+					grossAmount[i],
+					taxPercentage[i],
+					taxAmount[i],
+					discountPercent[i],
+					discountAmount[i],
+					netAmount[i]);
 		}
-		System.out.println("\nTotals\t\t" +
-							"# items = " + itemCount + "\t\t" +
-							"\t\t" +
-							"\t" +
-							"\t" + totalGrossAmount + "\t\t" +
-							"\t" +
-							"$" + totalTaxAmount + "\t" +
-							"\t\t" +
-							"$" + totalDiscountAmount + "\t\t" +
-							"$" + totalNetAmount);
+		System.out.println("\nTotals");
+		System.out.println("# Items = " + itemCount);
+		
+		System.out.printf("\t\t\t\t\t\t\t\t\t%.2f\t\t%.2f\t%.2f\t\t\t\t\t\t%.2f\n",
+				totalGrossAmount,
+				totalTaxAmount,
+				totalDiscountAmount,
+				totalNetAmount);
 	}
 
 }
