@@ -6,10 +6,9 @@
 package vacationDiaryPart2;
 
 import java.util.Scanner;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.InputMismatchException;
+import java.text.ParseException;
 
 public class VacationDiaryPart2 
 {
@@ -17,34 +16,45 @@ public class VacationDiaryPart2
 	{
 		boolean validInput = false;
 		String dateString = "";
-		String end = "end";
 		
 		while (!validInput)
 		{
 			validInput = true;
+			
+			System.out.print(prompt);
+			dateString = input.nextLine().trim();
+			
+			if (dateString.equalsIgnoreCase("end"))
+			{
+				return "end";
+			}
 			try
 			{
-				System.out.print(prompt);
-				dateString = input.nextLine();
-				if (!dateString.equals(end))
+				if (dateString.matches("\\d{8}"))
 				{
-					SimpleDateFormat sdfmt = new SimpleDateFormat("mmddyyyy");
-					sdfmt.setLenient(false);;
-					Date javaDate = sdfmt.parse(dateString);
-					if (dateString.length() != 8)
-					{
-						throw new Exception();
-					}
+					dateString = dateString.substring(0,2) + "/" +
+								dateString.substring(2,4) + "/" +
+								dateString.substring(4);
 				}
-				else
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+				sdf.setLenient(false);
+				Date date = sdf.parse(dateString);
+				
+				Date today = new Date();
+				if (date.after(today))
 				{
-					validInput = false;
-					return dateString;
+					throw new Exception();
 				}
+				dateString = sdf.format(date);
+			}
+			catch (ParseException e)
+			{
+				System.out.println("Invalid date format. Please re-enter.");
+				validInput = false;
 			}
 			catch (Exception e)
 			{
-				System.out.println("Invalid date Format.class Please re-enter");
+				System.out.println("Date cannot be in the future. Please re-enter.");
 				validInput = false;
 			}
 		}
@@ -138,7 +148,7 @@ public class VacationDiaryPart2
 		
 		while (keepGoing != "end")
 		{
-			String nextQuestion = "Enter Date Vacation Started (mmddyyyy) or end to quit: ";
+			String nextQuestion = "Enter Date Vacation Started (mm/dd/yyyy) or end to quit: ";
 			dateStarted[numStops] = validateDate(input, nextQuestion);
 			if (dateStarted[numStops].equals("end"))
 			{
@@ -161,14 +171,14 @@ public class VacationDiaryPart2
 		
 		System.out.println("============================================================================");
 		System.out.println("==========================Vacation Diary====================================");
-		System.out.println("Date\t\tCity\t\tCountry\t\tDays\t\tMode");
-		System.out.println("=============\t===============\t=================\t=============\t===========");
+		System.out.println("Date\t\tCity\t\t\tCountry\t\t\tDays\t\tMode");
+		System.out.println("==========\t===============\t\t===============\t\t========\t==========");
 		
 		for (int i = 0; i < numStops; i++)
 		{
 			System.out.println(dateStarted[i] + "\t" +
-								cityVisited[i] + "\t" +
-								countryVisited[i] + "\t" +
+								cityVisited[i] + "\t\t" +
+								countryVisited[i] + "\t\t" +
 								numberDays[i] + "\t\t" +
 								travelMode[i]);
 		}
